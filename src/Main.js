@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const FullHeader = ({ name }) => (
-    <h1>Hello {name}!</h1>
-);
+const FullHeader = ({ title }) => {
+    const component = (
+        <header>
+            {title && <h1>{title}</h1>}
+        </header>
+    );
 
-FullHeader.propTypes = {
-    name: PropTypes.string.isRequired,
+    return component;
 };
+
+const propTypes = {
+    title: PropTypes.string,
+};
+
+FullHeader.propTypes = propTypes;
 
 export default FullHeader;
