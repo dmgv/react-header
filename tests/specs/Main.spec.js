@@ -1,7 +1,10 @@
 import React from 'react';
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
+import chaiEnzyme from 'chai-enzyme';
 import { shallow } from 'enzyme';
 import FullHeader from '../../src/Main';
+
+chai.use(chaiEnzyme());
 
 describe('<FullHeader />', () => {
     it('should have header tag when mount', () => {
@@ -22,7 +25,7 @@ describe('<FullHeader />', () => {
 
         it('should have h1 tag with the title passed', () => {
             const wrapper = shallow(<FullHeader title="TDD" />);
-            expect(wrapper.find('h1').props().children).to.be.equal('TDD');
+            expect(wrapper.find('h1').props().children).to.be.equal("TDD");
         });
     });
 
@@ -39,7 +42,44 @@ describe('<FullHeader />', () => {
 
         it('should have h1 tag with the title passed', () => {
             const wrapper = shallow(<FullHeader subtitle="curso" />);
-            expect(wrapper.find('h2').props().children).to.be.equal('curso');
+            expect(wrapper.find('h2').props().children).to.be.equal("curso");
         });
     });
+
+    context('bgColor', () => {
+        it('should have background-color equal #ccc when none is passed', () => {
+            const wrapper = shallow(<FullHeader title="TDD" />);
+            expect(wrapper).to.have.style('background-color').equal('#ccc');
+        });
+
+        it('should have background-color equal #000 when none is passed', () => {
+            const wrapper = shallow(<FullHeader title="TDD" bgColor="#000" />);
+            expect(wrapper).to.have.style('background-color').equal('#000');
+        });
+    });
+
+    context('textColor', () => {
+        it('should have color equal #fff when none is passed', () => {
+            const wrapper = shallow(<FullHeader title="TDD" />);
+            expect(wrapper).to.have.style('color').equal('#fff');
+        });
+
+        it('should have color equal #ff0000 when none is passed', () => {
+            const wrapper = shallow(<FullHeader title="TDD" textColor="#ff0000" />);
+            expect(wrapper).to.have.style('color').equal('#ff0000');
+        });
+    });
+
+    context('font', () => {
+        it('should have font equal sans-serif when none is passed', () => {
+            const wrapper = shallow(<FullHeader />);
+            expect(wrapper).to.have.style('font-family').equal('sans-serif');
+        });
+
+        it('should have font equal open-sans when none is passed', () => {
+            const wrapper = shallow(<FullHeader font="open-sans" />);
+            expect(wrapper).to.have.style('font-family').equal('open-sans');
+        });
+    });
+
 });
